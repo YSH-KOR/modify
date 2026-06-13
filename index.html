@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Fuel Sheets</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;}
+
+/* ── 상단 헤더 ── */
+.top-header{
+  position:sticky;top:0;z-index:1000;
+  background:#ffffff;
+  display:flex;align-items:center;
+  padding:0 28px;
+  height:58px;
+  border-bottom:1px solid #dde3ea;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.top-header .logo{
+  color:#e8000a;
+  font-size:20px;font-weight:800;
+  letter-spacing:5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.top-header .logo::before{
+  content:'✈';font-size:20px;color:#e8000a;
+}
+.top-header .back-btn{
+  display:none;
+  margin-right:14px;
+  background:transparent;
+  border:1.5px solid #dde3ea;
+  color:#333;
+  padding:6px 16px;
+  border-radius:8px;
+  font-size:30px;font-weight:600;
+  cursor:pointer;
+  transition:background .15s;
+  letter-spacing:1px;
+}
+.top-header .back-btn:hover{background:#f0f4f8;}
+
+/* ── 홈 화면 ── */
+#home{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  height:calc(100vh - 58px);
+  gap:40px;
+  background:linear-gradient(145deg,#f0f4f8 0%,#e8eef6 100%);
+}
+#home h1{
+  color:#1e2d40;
+  font-size:50px;
+  font-weight:600;
+  letter-spacing:8px;
+  text-transform:uppercase;
+  opacity:0.55;
+}
+.airline-grid{
+  display:flex;gap:28px;flex-wrap:wrap;justify-content:center;
+}
+.airline-card{
+  width:190px;height:190px;
+  background:#ffffff;
+  border:1.5px solid #dde3ea;
+  border-radius:20px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:10px;
+  font-size:46px;font-weight:900;color:#1a56db;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,0.07);
+  transition:transform .18s,box-shadow .18s,border-color .18s,color .18s;
+  user-select:none;
+}
+.airline-card .card-label{
+  font-size:12px;font-weight:600;
+  letter-spacing:3px;color:#7a8fa6;
+  text-transform:uppercase;
+}
+.airline-card:hover{
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 16px 40px rgba(26,86,219,0.15);
+  border-color:#1a56db;
+  color:#1648c0;
+}
+.airline-card:active{
+  transform:translateY(-2px) scale(1.01);
+}
+
+/* ── 항공사 페이지 ── */
+.page{display:none;width:100%;height:calc(100vh - 58px);}
+.page.active{display:block;}
+iframe{width:100%;height:100%;border:none;background:white;}
+</style>
+</head>
+<body>
+
+<!-- 상단 헤더 -->
+<div class="top-header">
+  <button class="back-btn" id="backBtn" onclick="goHome()">← 뒤로가기</button>
+  <span class="logo">STX</span>
+</div>
+
+<!-- 홈: 카테고리 선택 -->
+<div id="home">
+  <h1>Airlines</h1>
+  <div class="airline-grid">
+    <div class="airline-card" onclick="showPage('p9g')">9G</div>
+    <div class="airline-card" onclick="showPage('pkc')">KC</div>
+    <div class="airline-card" onclick="showPage('pak')">AK</div>
+    <div class="airline-card" onclick="showPage('pd7')">D7</div>
+  </div>
+</div>
+
+<div id="p9g" class="page">
+<iframe srcdoc="&lt;!DOCTYPE html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;&lt;title&gt;9G Fuel Sheet CALC&lt;/title&gt;&lt;style&gt;*{box-sizing:border-box;}body{font-family:&apos;Segoe UI&apos;,Arial,sans-serif;background:#ffffff;margin:0;padding:6px;color:#222;}.main-container{background:#ffffff;padding:8px;border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,0.08);border:1px solid #e6e6e6;width:100%;}h2{text-align:center;margin:0 0 10px 0;font-size:1.1rem;font-weight:600;color:#333;}table{border-collapse:collapse;width:100%;background:#fff;table-layout:fixed;}th,td{border:1px solid #e5e5e5;padding:4px 2px;text-align:center;font-size:20px;}th{background:#f7f7f7;font-weight:600;color:#444;}tr:nth-child(even) td{background:#fcfcfc;}input:not([readonly]){width:100%;border:1px solid #d6d6d6;border-radius:6px;background:#fffdf2;text-align:center;font-size:20px;padding:3px 1px;transition:0.2s ease;}input:not([readonly]):focus{outline:none;border-color:#f0c041;background:#fff9c9;box-shadow:0 0 0 2px rgba(240,192,64,0.25);}input[readonly]{width:100%;border:1px solid #e1e1e1;border-radius:6px;background:#f2f4f7;text-align:center;font-size:20px;padding:3px 1px;font-weight:600;color:#333;cursor:not-allowed;}.summary-label{background-color:#fafafa;font-weight:600;text-align:left;font-size:10px;padding-left:3px;color:#555;word-break:break-all;}.total-row{background-color:#f5f5f5;font-weight:bold;}td#density_display_top{background:#f2f4f7;font-weight:600;}.sub-table{margin-top:14px;width:100%;max-width:320px;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;main-container&quot;&gt;&lt;h2&gt;9G FUEL&lt;/h2&gt;&lt;table&gt;&lt;colgroup&gt;&lt;col style=&quot;width:8%&quot;&gt;&lt;col style=&quot;width:11%&quot;&gt;&lt;col style=&quot;width:11%&quot;&gt;&lt;col style=&quot;width:11%&quot;&gt;&lt;col style=&quot;width:11%&quot;&gt;&lt;col style=&quot;width:10%&quot;&gt;&lt;col style=&quot;width:11%&quot;&gt;&lt;col style=&quot;width:15%&quot;&gt;&lt;col style=&quot;width:12%&quot;&gt;&lt;/colgroup&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;TANK&lt;/th&gt;&lt;th&gt;REMAIN&lt;/th&gt;&lt;th&gt;B/F FUEL&lt;/th&gt;&lt;th&gt;UPLIFT&lt;/th&gt;&lt;th&gt;SUM&lt;/th&gt;&lt;th&gt;ADJUST&lt;/th&gt;&lt;th&gt;DEPART&lt;/th&gt;&lt;th colspan=&quot;2&quot;&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;LEFT&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_rem&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_bf&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_up&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_sum&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_adj&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;l_dep&quot; readonly&gt;&lt;/td&gt;&lt;td class=&quot;summary-label&quot;&gt;BOWSER UPLIFT&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;bowser_uplift_display&quot; readonly&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;CTR&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_rem&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_bf&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_up&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_sum&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_adj&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;c_dep&quot; readonly&gt;&lt;/td&gt;&lt;td class=&quot;summary-label&quot;&gt;TOTAL UPLIFT&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;total_uplift_display&quot; readonly&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;RIGHT&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_rem&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_bf&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_up&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_sum&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_adj&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;r_dep&quot; readonly&gt;&lt;/td&gt;&lt;td class=&quot;summary-label&quot;&gt;DISCREPANCY&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;discrepancy_display&quot; readonly&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;TRIM&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_rem&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_bf&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_up&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_sum&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_adj&quot; readonly&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;t_dep&quot; readonly&gt;&lt;/td&gt;&lt;td class=&quot;summary-label&quot;&gt;DENSITY&lt;/td&gt;&lt;td id=&quot;density_display_top&quot;&gt;0&lt;/td&gt;&lt;/tr&gt;&lt;tr class=&quot;total-row&quot;&gt;&lt;td&gt;TOTAL&lt;/td&gt;&lt;td id=&quot;tot_rem&quot;&gt;0&lt;/td&gt;&lt;td id=&quot;tot_bf&quot;&gt;0&lt;/td&gt;&lt;td id=&quot;tot_up&quot;&gt;0&lt;/td&gt;&lt;td id=&quot;tot_sum&quot;&gt;0&lt;/td&gt;&lt;td id=&quot;tot_adj&quot;&gt;0&lt;/td&gt;&lt;td id=&quot;tot_dep&quot;&gt;0&lt;/td&gt;&lt;td class=&quot;summary-label&quot;&gt;FUEL BILL NO&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;fuel_bill_no&quot; style=&quot;width:100%;font-size:20px;border:1px solid #d6d6d6;border-radius:6px;background:#fffdf2;text-align:center;padding:3px 1px;&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table class=&quot;sub-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th colspan=&quot;2&quot;&gt;BOWSER UPLIFT CALCULATION&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;summary-label&quot;&gt;GALLONS&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;gallon&quot; step=&quot;0.1&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;summary-label&quot;&gt;DENSITY&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;number&quot; id=&quot;density&quot; step=&quot;0.001&quot; oninput=&quot;calc()&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;script&gt;function calc(){const tanks=[&apos;l&apos;,&apos;c&apos;,&apos;r&apos;,&apos;t&apos;];let totals={rem:0,bf:0,up:0,sum:0,adj:0,dep:0};tanks.forEach(tank=&gt;{const rem=parseFloat(document.getElementById(tank+&apos;_rem&apos;).value)||0;const bf=parseFloat(document.getElementById(tank+&apos;_bf&apos;).value)||0;const sumVal=parseFloat(document.getElementById(tank+&apos;_sum&apos;).value)||0;const adj=parseFloat(document.getElementById(tank+&apos;_adj&apos;).value)||0;const upVal=sumVal-bf;document.getElementById(tank+&apos;_up&apos;).value=upVal;let depVal=sumVal+adj;const manualDep=document.getElementById(tank+&apos;_dep&apos;).value;if(manualDep!==&quot;&quot;)depVal=parseFloat(manualDep);totals.rem+=rem;totals.bf+=bf;totals.up+=upVal;totals.sum+=sumVal;totals.adj+=adj;totals.dep+=depVal;});document.getElementById(&apos;tot_rem&apos;).innerText=totals.rem.toLocaleString();document.getElementById(&apos;tot_bf&apos;).innerText=totals.bf.toLocaleString();document.getElementById(&apos;tot_up&apos;).innerText=totals.up.toLocaleString();document.getElementById(&apos;tot_sum&apos;).innerText=totals.sum.toLocaleString();document.getElementById(&apos;total_uplift_display&apos;).value=totals.up;const denVal=document.getElementById(&apos;density&apos;).value||0;document.getElementById(&apos;density_display_top&apos;).innerText=denVal;const galVal=parseFloat(document.getElementById(&apos;gallon&apos;).value)||0;const bowserUplift=Math.round(galVal*denVal*3.78541);document.getElementById(&apos;bowser_uplift_display&apos;).value=bowserUplift;const discrepancy=bowserUplift-totals.up;document.getElementById(&apos;discrepancy_display&apos;).value=discrepancy;}window.onload=calc;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+</div>
+
+<div id="pkc" class="page">
+<iframe srcdoc="&lt;style&gt;
+
+body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#f0f4f8;
+}
+
+.sheet{
+    width:1000px;
+    margin:30px auto;
+    transform:scale(0.8);
+    transform-origin:top center;
+}
+
+table{
+    border-collapse:collapse;
+    margin-bottom:0;
+}
+
+td{
+    border:1px solid #d1dae6;
+    text-align:center;
+    vertical-align:middle;
+    color:#1e2d40;
+}
+
+.gray{
+    background:#edf2f7;
+}
+
+.green{
+    background:#fffde7;
+    padding:4px;
+}
+
+.green input{
+    width:100%;
+    height:60px;
+    border:none;
+    background:transparent;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    box-sizing:border-box;
+    color:#1e2d40;
+}
+
+.title{
+    background:#1a56db;
+    color:#ffffff;
+    font-size:42px;
+    font-weight:bold;
+    height:65px;
+}
+
+.header{
+    height:58px;
+    font-size:28px;
+    background:#f7f9fc;
+    color:#4a6080;
+}
+
+.row{
+    height:68px;
+}
+
+.big{
+    font-size:30px;
+    font-weight:bold;
+    color:#1a56db;
+}
+
+.section{
+    height:78px;
+    font-size:28px;
+    background:#e8f0fe;
+    color:#1a56db;
+}
+
+.value{
+    height:68px;
+}
+
+.qty{
+    margin-top:60px;
+}
+
+.fwd{
+    margin-top:70px;
+}
+
+.value td{
+    height:68px;
+}
+
+.label{
+    font-size:28px;
+    font-weight:normal;
+    color:#374151;
+}
+
+&lt;/style&gt;
+
+&lt;div class=&quot;sheet&quot;&gt;
+
+&lt;!-- TABLE 1 --&gt;
+
+&lt;table width=&quot;1120&quot;&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;6&quot; class=&quot;title&quot;&gt;
+FUEL RECORD
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr class=&quot;header&quot;&gt;
+
+&lt;td width=&quot;220&quot;&gt;Tank&lt;/td&gt;
+&lt;td width=&quot;220&quot;&gt;Pre-Fuel&lt;/td&gt;
+&lt;td width=&quot;220&quot;&gt;Depart&lt;/td&gt;
+&lt;td width=&quot;220&quot;&gt;Adjust&lt;/td&gt;
+&lt;td colspan=&quot;2&quot; width=&quot;240&quot;&gt;
+Adj.&lt;br&gt;Depart
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr class=&quot;row&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;Left&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;&lt;input id=&quot;pre_left&quot; oninput=&quot;kcCalc()&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;&lt;input id=&quot;dep_left&quot; oninput=&quot;kcCalc()&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;td colspan=&quot;2&quot; class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr class=&quot;row&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;Right&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;&lt;input id=&quot;pre_right&quot; oninput=&quot;kcCalc()&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;&lt;input id=&quot;dep_right&quot; oninput=&quot;kcCalc()&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;td colspan=&quot;2&quot; class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr class=&quot;row&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;Centre&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;&lt;input id=&quot;pre_ctr&quot; oninput=&quot;kcCalc()&quot;&gt;&lt;/td&gt;
+&lt;td id=&quot;dep_ctr_display&quot; class=&quot;big gray&quot;&gt;0&lt;/td&gt;
+&lt;td class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;td colspan=&quot;2&quot; class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr class=&quot;row&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;Total&lt;/td&gt;
+&lt;td id=&quot;totalPre&quot; class=&quot;big&quot;&gt;0&lt;/td&gt;
+&lt;td id=&quot;totalDep&quot; class=&quot;big&quot;&gt;0&lt;/td&gt;
+&lt;td class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;td colspan=&quot;2&quot; class=&quot;gray&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr class=&quot;section&quot;&gt;
+
+&lt;td colspan=&quot;3&quot;&gt;
+Bowser Uplift
+&lt;/td&gt;
+
+&lt;td colspan=&quot;2&quot;&gt;
+Calculated Uplift&lt;br&gt;
+Depart - Pre-Fuel
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr class=&quot;value&quot;&gt;
+
+&lt;td colspan=&quot;3&quot; style=&quot;padding:0;&quot;&gt;
+
+&lt;table style=&quot;
+width:100%;
+height:100%;
+border-collapse:collapse;
+table-layout:fixed;
+&quot;&gt;
+
+&lt;tr&gt;
+
+&lt;td style=&quot;
+width:12%;
+border-left:none;
+border-top:none;
+border-bottom:none;
+font-size:26px;
+&quot;&gt;
+Lts
+&lt;/td&gt;
+
+&lt;td id=&quot;liter&quot;
+    class=&quot;big&quot;
+    style=&quot;
+    width:38%;
+    border-top:none;
+    border-bottom:none;
+&quot;&gt;
+0
+&lt;/td&gt;
+
+&lt;td style=&quot;
+width:12%;
+border-top:none;
+border-bottom:none;
+font-size:26px;
+&quot;&gt;
+Kg
+&lt;/td&gt;
+
+&lt;td id=&quot;bowserKg&quot;
+    class=&quot;big&quot;
+    style=&quot;
+    width:38%;
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+&quot;&gt;
+0
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;/td&gt;
+
+&lt;td colspan=&quot;2&quot; style=&quot;padding:0;&quot;&gt;
+
+&lt;table style=&quot;
+width:100%;
+height:100%;
+border-collapse:collapse;
+table-layout:fixed;
+&quot;&gt;
+
+&lt;tr&gt;
+
+&lt;td style=&quot;
+width:20%;
+border-left:none;
+border-top:none;
+border-bottom:none;
+font-size:26px;
+&quot;&gt;
+Kg
+&lt;/td&gt;
+
+&lt;td id=&quot;calcUplift&quot;
+    class=&quot;big&quot;
+    style=&quot;
+    width:80%;
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+&quot;&gt;
+0
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;!-- TABLE 2 --&gt;
+
+&lt;table width=&quot;1120&quot;&gt;
+
+&lt;tr class=&quot;section&quot;&gt;
+
+&lt;td colspan=&quot;3&quot;&gt;
+FUEL Density
+&lt;/td&gt;
+
+&lt;td colspan=&quot;3&quot;&gt;
+DISCREPANCY&lt;br&gt;
+(Calculated-Bowser)
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:70px;&quot;&gt;
+
+&lt;td colspan=&quot;3&quot; class=&quot;green&quot;&gt;
+
+&lt;input
+id=&quot;density&quot;
+value=&quot;&quot;
+step=&quot;0.0001&quot;
+oninput=&quot;kcCalc()&quot;&gt;
+
+&lt;/td&gt;
+
+&lt;td colspan=&quot;3&quot;
+id=&quot;discrepancy&quot;
+class=&quot;big&quot;&gt;
+
+0
+
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;!-- TABLE 3 --&gt;
+
+&lt;table width=&quot;670&quot; class=&quot;qty&quot;&gt;
+
+&lt;tr style=&quot;height:70px;&quot;&gt;
+
+&lt;td width=&quot;450&quot; style=&quot;font-size:28px;&quot;&gt;
+Total QTY (USGal)
+&lt;/td&gt;
+
+&lt;td width=&quot;220&quot; class=&quot;green&quot;&gt;
+
+&lt;input
+id=&quot;usgal&quot;
+oninput=&quot;kcCalc()&quot;&gt;
+
+&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;!-- TABLE 4 --&gt;
+
+&lt;table width=&quot;450&quot; class=&quot;fwd&quot;&gt;
+
+&lt;tr style=&quot;height:68px;&quot;&gt;
+&lt;td width=&quot;220&quot; class=&quot;label&quot;&gt;FWD&lt;/td&gt;
+&lt;td width=&quot;230&quot; class=&quot;green&quot;&gt;
+&lt;input id=&quot;fwd&quot; oninput=&quot;kcCalc()&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:68px;&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;AFT 1&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;
+&lt;input id=&quot;aft1&quot; oninput=&quot;kcCalc()&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:68px;&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;AFT 2&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;
+&lt;input id=&quot;aft2&quot; oninput=&quot;kcCalc()&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:68px;&quot;&gt;
+&lt;td class=&quot;label&quot;&gt;CTR&lt;/td&gt;
+&lt;td class=&quot;green&quot;&gt;
+&lt;input id=&quot;ctrtank&quot; oninput=&quot;kcCalc()&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;/div&gt;
+
+&lt;script&gt;
+
+function kcCalc(){
+
+const p1 =
++document.getElementById(&#x27;pre_left&#x27;).value || 0;
+
+const p2 =
++document.getElementById(&#x27;pre_ctr&#x27;).value || 0;
+
+const p3 =
++document.getElementById(&#x27;pre_right&#x27;).value || 0;
+
+const d1 =
++document.getElementById(&#x27;dep_left&#x27;).value || 0;
+
+const fwd =
++document.getElementById(&#x27;fwd&#x27;).value || 0;
+
+const aft1 =
++document.getElementById(&#x27;aft1&#x27;).value || 0;
+
+const aft2 =
++document.getElementById(&#x27;aft2&#x27;).value || 0;
+
+const ctrtank =
++document.getElementById(&#x27;ctrtank&#x27;).value || 0;
+
+const d2 =
+fwd + aft1 + aft2 + ctrtank;
+
+document.getElementById(&#x27;dep_ctr_display&#x27;).innerHTML =
+d2.toLocaleString();
+
+const d3 =
++document.getElementById(&#x27;dep_right&#x27;).value || 0;
+
+const totalPre = p1+p2+p3;
+const totalDep = d1+d2+d3;
+
+document.getElementById(&#x27;totalPre&#x27;).innerHTML =
+totalPre.toLocaleString();
+
+document.getElementById(&#x27;totalDep&#x27;).innerHTML =
+totalDep.toLocaleString();
+
+const density =
++document.getElementById(&#x27;density&#x27;).value || 0;
+
+const usgal =
++document.getElementById(&#x27;usgal&#x27;).value || 0;
+
+const liter =
+Math.round(usgal*3.7854);
+
+const bowser =
+Math.round(liter*density);
+
+const uplift =
+totalDep-totalPre;
+
+const disc =
+uplift-bowser;
+
+document.getElementById(&#x27;liter&#x27;).innerHTML =
+liter.toLocaleString();
+
+document.getElementById(&#x27;bowserKg&#x27;).innerHTML =
+bowser.toLocaleString();
+
+document.getElementById(&#x27;calcUplift&#x27;).innerHTML =
+uplift.toLocaleString();
+
+document.getElementById(&#x27;discrepancy&#x27;).innerHTML =
+disc.toLocaleString();
+
+}
+
+&lt;/script&gt;"></iframe>
+</div>
+
+
+<div id="pak" class="page">
+<iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;title&gt;AK Fuel&lt;/title&gt;
+&lt;style&gt;
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;padding:20px}
+table{
+    border-collapse:collapse;
+    width:1200px;
+    margin:auto;
+    table-layout:fixed;
+    transform:scale(0.9);
+    transform-origin:top center;
+}
+td{
+    border:1px solid #d1dae6;
+    text-align:center;
+    vertical-align:middle;
+    padding:0;
+    height:60px;
+    font-size:21px;
+    color:#1e2d40;
+}
+.title{font-size:28px;font-weight:700;background:#f7f9fc;color:#1e2d40;}
+.small{font-size:12px}
+.input{background:#fffde7}
+input{
+    width:100%;
+    height:100%;
+    border:none;
+    background:transparent;
+    text-align:center;
+    font-size:21px;
+    font-weight:bold;
+    box-sizing:border-box;
+    color:#1e2d40;
+}
+.unit{width:60px}
+.refuel-wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    gap:8px;
+    padding:0 8px;
+    box-sizing:border-box;
+}
+
+.calc-box{
+    flex:1;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    font-weight:bold;
+    border:none;
+    background:transparent;
+    color:#1a56db;
+}
+
+.sg-box{
+    flex:1;
+    height:36px;
+    text-align:center;
+    font-size:21px;
+    font-weight:bold;
+    background:#fffde7;
+    border:none;
+    outline:none;
+    color:#1e2d40;
+}
+
+.fuel-text{
+    font-size:21px;
+    font-weight:normal;
+    white-space:nowrap;
+    color:#64748b;
+}
+
+/* Chrome, Edge, Safari */
+input[type=&quot;number&quot;]::-webkit-outer-spin-button,
+input[type=&quot;number&quot;]::-webkit-inner-spin-button{
+    -webkit-appearance:none;
+    margin:0;
+}
+
+/* Firefox */
+input[type=&quot;number&quot;]{
+    -moz-appearance:textfield;
+    appearance:textfield;
+}
+
+#arrivalTotal,
+#uplift,
+#depCalc,
+#depGauge,
+#disc{
+    font-weight:700;
+    font-size:21px;
+    color:#1a56db;
+}
+
+.ac-label{
+    font-size:16px;
+    font-weight:normal;
+    color:#64748b;
+}
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width:13%&quot;&gt;
+&lt;col style=&quot;width:17%&quot;&gt;
+&lt;col style=&quot;width:17%&quot;&gt;
+&lt;col style=&quot;width:17%&quot;&gt;
+&lt;col style=&quot;width:17%&quot;&gt;
+&lt;col style=&quot;width:18%&quot;&gt;
+&lt;/colgroup&gt;
+
+&lt;tr&gt;
+&lt;td rowspan=&quot;2&quot;
+    style=&quot;color:red;font-size:30px;font-weight:bold;&quot;&gt;
+    Air Asia
+&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; rowspan=&quot;2&quot; class=&quot;title&quot;&gt;AIRCRAFT FUEL RECORD&lt;/td&gt;
+&lt;td&gt;A/C TYPE&lt;/td&gt;
+&lt;td&gt;A/C REGISTRATION&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;2&quot;&gt;PILOT NAME&lt;/td&gt;
+&lt;td&gt;FLIGHT NO.&lt;/td&gt;
+&lt;td&gt;STATION&lt;/td&gt;
+&lt;td&gt;A/C TAKE OFF WT +&lt;/td&gt;
+&lt;td&gt;MIN. SECTOR FUEL +&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;2&quot;&gt;&lt;input&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input value=&quot;AK1624&quot;&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input value=&quot;ICN&quot;&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input&gt;&lt;/td&gt;
+&lt;td&gt;&lt;input&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;FUEL PROVIDER:&lt;/td&gt;
+&lt;td&gt;&lt;input value=&quot;KAS&quot;&gt;&lt;/td&gt;
+&lt;td&gt;LH TANK&lt;/td&gt;
+&lt;td&gt;CTR/TRIM TANK&lt;/td&gt;
+&lt;td&gt;RH TANK&lt;/td&gt;
+&lt;td&gt;TOTAL&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ARRIVAL FUEL&lt;/td&gt;
+&lt;td&gt;FROM GAUGE&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;lh&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;ctr&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;rh&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td id=&quot;arrivalTotal&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;2&quot;&gt;REFUEL / DEFUEL&lt;/td&gt;
+
+&lt;td colspan=&quot;3&quot;&gt;
+
+    &lt;div class=&quot;refuel-wrapper&quot;&gt;
+
+        &lt;span id=&quot;litresDisplay&quot; class=&quot;calc-box&quot;&gt;
+            0
+        &lt;/span&gt;
+
+        &lt;span class=&quot;fuel-text&quot;&gt;
+            LITERS
+        &lt;/span&gt;
+
+        &lt;input
+            id=&quot;sg&quot;
+            value=&quot;&quot;
+            step=&quot;0.0001&quot;
+            type=&quot;number&quot;
+            class=&quot;sg-box&quot;&gt;
+
+        &lt;span class=&quot;fuel-text&quot;&gt;
+            SPECIFIC&lt;br&gt;GRAVITY
+        &lt;/span&gt;
+
+    &lt;/div&gt;
+
+&lt;/td&gt;
+
+&lt;td id=&quot;uplift&quot;&gt;&lt;/td&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DEPARTURE FUEL&lt;/td&gt;
+&lt;td&gt;(CALC)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot;&gt;ADD ARRIVAL FUEL (KG) TO FUEL UPLIFT (KG)&lt;/td&gt;
+&lt;td id=&quot;depCalc&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DEPARTURE FUEL&lt;/td&gt;
+&lt;td&gt;FROM GAUGE&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;dlh&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;dctr&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;input&quot;&gt;&lt;input id=&quot;drh&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+&lt;td id=&quot;depGauge&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DISCREPANCY&lt;/td&gt;
+&lt;td colspan=&quot;4&quot;&gt;DEPARTURE (CALC) TO DEPARTURE (GAUGE)&lt;/td&gt;
+&lt;td id=&quot;disc&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table style=&quot;
+    border-collapse:collapse;
+    margin:20px auto 0 auto;
+    width:220px;
+&quot;&gt;
+    &lt;tr&gt;
+        &lt;td style=&quot;
+            border:3px solid #d1dae6;
+            width:150px;
+            height:38px;
+            padding:0;
+        &quot;&gt;
+            &lt;input
+    id=&quot;usg&quot;
+    type=&quot;number&quot;
+    value=&quot;&quot;
+    style=&quot;
+        width:100%;
+        height:100%;
+        border:none;
+        text-align:center;
+        font-size:20px;
+        font-weight:bold;
+        background:#fffde7;
+        box-sizing:border-box;
+        color:#1e2d40;
+    &quot;
+&gt;
+        &lt;/td&gt;
+
+        &lt;td style=&quot;
+            border:3px solid #d1dae6;
+            width:70px;
+            font-size:18px;
+            font-weight:bold;
+            color:#1e2d40;
+        &quot;&gt;
+            USG
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;script&gt;
+function n(id){return parseFloat(document.getElementById(id).value)||0;}
+function calc(){
+const arrival=n(&#x27;lh&#x27;)+n(&#x27;ctr&#x27;)+n(&#x27;rh&#x27;);
+const usg=n(&#x27;usg&#x27;);
+const litres=usg*3.7854;
+const uplift=litres*n(&#x27;sg&#x27;);
+const depCalc=arrival+uplift;
+const depGauge=n(&#x27;dlh&#x27;)+n(&#x27;dctr&#x27;)+n(&#x27;drh&#x27;);
+const disc=depCalc-depGauge;
+
+document.getElementById(&#x27;arrivalTotal&#x27;).innerText=arrival.toFixed(0)+&#x27; KG&#x27;;
+document.getElementById(&#x27;litresDisplay&#x27;).innerText=
+    litres.toFixed(0);
+document.getElementById(&#x27;uplift&#x27;).innerText=
+    uplift.toFixed(0)+&#x27; KG&#x27;;
+document.getElementById(&#x27;depCalc&#x27;).innerText=depCalc.toFixed(0)+&#x27; KG&#x27;;
+document.getElementById(&#x27;depGauge&#x27;).innerText=depGauge.toFixed(0)+&#x27; KG&#x27;;
+document.getElementById(&#x27;disc&#x27;).innerText=disc.toFixed(0)+&#x27; KG&#x27;;
+}
+document.querySelectorAll(&#x27;input&#x27;).forEach(x=&gt;x.addEventListener(&#x27;input&#x27;,calc));
+calc();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe>
+</div>
+
+
+<div id="pd7" class="page">
+<iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;title&gt;D7 Fuel&lt;/title&gt;
+&lt;style&gt;
+body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#f0f4f8;
+    padding:20px;
+}
+.sheet{
+    width:900px;
+    margin:auto;
+}
+table{
+    border-collapse:collapse;
+    width:100%;
+    table-layout:fixed;
+}
+td{
+    border:1px solid #d1dae6;
+    height:54px;
+    font-size:22px;
+    padding:0 10px;
+    vertical-align:middle;
+    color:#1e2d40;
+}
+.title{
+    font-size:34px;
+    font-weight:bold;
+    text-align:center;
+    background:#1a56db;
+    color:#ffffff;
+}
+.label{
+    font-weight:bold;
+    background:#f7f9fc;
+    color:#374151;
+}
+.center{
+    text-align:center;
+}
+.right{
+    text-align:right;
+}
+.input{
+    background:#fffde7;
+    text-align:center;
+}
+input{
+    width:100%;
+    height:100%;
+    border:none;
+    background:transparent;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    box-sizing:border-box;
+    color:#1e2d40;
+}
+.gray{
+    background:#e8f0fe;
+    color:#1a56db;
+}
+.big{
+    font-size:24px;
+    font-weight:bold;
+    color:#1a56db;
+}
+.note{
+    font-size:20px;
+    font-weight:bold;
+    color:#374151;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;sheet&quot;&gt;
+
+&lt;table&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;8&quot; class=&quot;title&quot;&gt;D7 FUEL&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;a) ARRIVAL (KG)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; class=&quot;input&quot;&gt;
+&lt;input id=&quot;arrival&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;b) MAINTENANCE UPLIFT (KG)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; class=&quot;input&quot;&gt;
+&lt;input id=&quot;maint&quot; value=&quot;0&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;c) TOTAL ( a + b )&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;totalab&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;d) CURRENT FUEL (KG)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; class=&quot;input&quot;&gt;
+&lt;input id=&quot;currentfuel&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;e) USED ON GROUND ( c - d )&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;groundused&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;f) DEPARTURE FUEL (KG)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; class=&quot;input&quot;&gt;
+&lt;input id=&quot;departurefuel&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;g) FUEL UPLIFT (VOL)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;fuelupliftvol&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:2px;&quot;&gt;&lt;td colspan=&quot;8&quot; style=&quot;border:none;height:2px;padding:0;&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&quot;6&quot; class=&quot;label center&quot;&gt;LITRES = USG X 3.785&lt;/td&gt;
+&lt;td class=&quot;center big&quot; style=&quot;width:90px;&quot;&gt;
+&lt;div style=&quot;display:flex;align-items:center;justify-content:center;gap:8px;&quot;&gt;
+&lt;div style=&quot;width:22px;height:22px;border:2px solid #000;&quot;&gt;&lt;/div&gt;
+&lt;span&gt;LTR&lt;/span&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;center big&quot; style=&quot;width:90px;&quot;&gt;
+&lt;div style=&quot;display:flex;align-items:center;justify-content:center;gap:8px;&quot;&gt;
+&lt;div style=&quot;width:22px;height:22px;border:2px solid #000;&quot;&gt;&lt;/div&gt;
+&lt;span&gt;USG&lt;/span&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr style=&quot;height:66px;&quot;&gt;
+&lt;td colspan=&quot;2&quot; class=&quot;label&quot; style=&quot;border-right:1px solid #000;&quot;&gt;
+    h) CALC UPLIFT&lt;br&gt;(KG)
+&lt;/td&gt;
+
+&lt;td colspan=&quot;2&quot; class=&quot;center big gray&quot; id=&quot;litrescalc&quot;
+    style=&quot;border-left:none;border-right:none;&quot;&gt;
+    &lt;div style=&quot;width:105%;height:36px;background:#f3f3f3;
+                border:1px solid #000;margin:auto;
+                display:flex;align-items:center;justify-content:center;&quot;&gt;
+        0
+    &lt;/div&gt;
+&lt;/td&gt;
+
+&lt;td class=&quot;center label&quot;
+    style=&quot;white-space:nowrap;border-left:none;border-right:none;&quot;&gt;
+    LITRES X
+&lt;/td&gt;
+
+&lt;td colspan=&quot;2&quot; class=&quot;input&quot;
+    style=&quot;border-left:none;border-right:none;background:transparent;&quot;&gt;
+    &lt;div style=&quot;width:105%;height:36px;background:#fffde7;
+                margin:auto;display:flex;align-items:center;&quot;&gt;
+        &lt;input id=&quot;sg&quot; step=&quot;0.0001&quot;
+               style=&quot;width:100%;height:100%;background:#fffde7;&quot;&gt;
+    &lt;/div&gt;
+&lt;/td&gt;
+
+&lt;td class=&quot;center big&quot; style=&quot;border-left:none;&quot;&gt;SG&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;i) CALC UPLIFT (KG) (h)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;calcupliftkg&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;j) DEPARTURE ( i + d ) (CALCULATED KG)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;departurecalc&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;k) DEPARTURE FUEL (KG) (GAUGE)&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; class=&quot;input&quot;&gt;
+&lt;input id=&quot;departuregauge&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;5&quot; class=&quot;label&quot;&gt;l) DISCREPANCY&lt;/td&gt;
+&lt;td colspan=&quot;3&quot; id=&quot;discrepancy&quot; class=&quot;big center gray&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+&lt;table style=&quot;margin-top:18px;width:260px;margin-left:auto;border-collapse:collapse;&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;input&quot; style=&quot;width:160px;&quot;&gt;
+&lt;input id=&quot;usg&quot;&gt;
+&lt;/td&gt;
+&lt;td class=&quot;center big&quot; style=&quot;width:100px;&quot;&gt;USG&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;/div&gt;
+
+&lt;script&gt;
+function n(id){
+    return parseFloat(document.getElementById(id).value)||0;
+}
+
+function d7Calc(){
+
+const arrival = n(&#x27;arrival&#x27;);
+const maint = n(&#x27;maint&#x27;);
+
+const totalab = arrival + maint;
+
+const currentfuel = n(&#x27;currentfuel&#x27;);
+
+const departuregauge = n('departuregauge');
+
+const groundused = totalab - currentfuel;
+
+const departurefuel = n(&#x27;departurefuel&#x27;);
+
+const usg = n(&#x27;usg&#x27;);
+
+const litres = usg * 3.785;
+
+const sg = n(&#x27;sg&#x27;);
+
+const upliftkg = litres * sg;
+
+const departurecalc = upliftkg + currentfuel;
+
+const discrepancy = departurecalc - departuregauge;
+
+document.getElementById(&#x27;totalab&#x27;).innerText =
+    totalab.toFixed(0);
+
+document.getElementById(&#x27;groundused&#x27;).innerText =
+    groundused.toFixed(0);
+
+document.getElementById(&#x27;fuelupliftvol&#x27;).innerText =
+    litres.toFixed(0);
+
+document.getElementById(&#x27;litrescalc&#x27;).innerText =
+    litres.toFixed(0);
+
+document.getElementById(&#x27;calcupliftkg&#x27;).innerText =
+    upliftkg.toFixed(0);
+
+document.getElementById(&#x27;departurecalc&#x27;).innerText =
+    departurecalc.toFixed(0);
+
+document.getElementById(&#x27;departuregauge&#x27;).innerText =
+    departurefuel.toFixed(0);
+
+document.getElementById(&#x27;discrepancy&#x27;).innerText =
+    discrepancy.toFixed(0);
+
+}
+
+document.querySelectorAll(&#x27;input&#x27;).forEach(x=&gt;
+    x.addEventListener(&#x27;input&#x27;,d7Calc)
+);
+
+d7Calc();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</div>
+
+<script>
+function showPage(id){
+  document.getElementById('home').style.display='none';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('backBtn').style.display='inline-block';
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('home').style.display='flex';
+  document.getElementById('backBtn').style.display='none';
+}
+</script>
+</body>
+</html>
